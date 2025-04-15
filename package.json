@@ -13,7 +13,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd client && npm run build && cd .. && npm run build:windows",
     "build:windows": "cd client && npm run build && xcopy /E /I /Y build ..\\server\\public",
-    "prod": "npm run build:windows && cd server && npm run prod"
+    "prod": "npm run build:windows && cd server && npm run prod",
+    "deploy": "npm run build && netlify deploy",
+    "deploy:prod": "npm run build && netlify deploy --prod"
   },
   "keywords": [
     "recipe",
@@ -23,6 +25,9 @@
   ],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
