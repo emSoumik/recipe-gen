@@ -25,19 +25,28 @@ Build a web application that uses advanced AI to scan photos of refrigerators or
 
 ### Setup Instructions
 
-1. Clone the repository
+1. Clone the repository (adjust directory name as needed)
 ```bash
-git clone https://github.com/yourusername/food-image-recipe-generator.git
-cd food-image-recipe-generator
+git clone <your-repo-url> "recipe gen"
+cd "recipe gen"
 ```
 
 2. Setup environment variables
+
+If you have an `.env.example` (now provided), copy it to create your `.env` file:
 ```bash
-cp .env.example .env
+cp server/.env.example server/.env
 ```
 Edit the `.env` file and add your Google Gemini API key.
 
-3. Install backend dependencies
+If you do not wish to copy, you can manually create `server/.env` with the following content:
+```env
+GOOGLE_GEMINI_API_KEY=your_google_gemini_api_key_here
+NODE_ENV=development
+PORT=3000
+```
+
+3. Install backend dependencies (Node.js backend)
 ```bash
 cd server
 npm install
@@ -89,7 +98,7 @@ docker run -p 3000:3000 -e GOOGLE_GEMINI_API_KEY=your_key_here food-image-recipe
 
 ## Technology Stack
 - **Frontend:** React.js or Vue.js, CSS3/SCSS, Flexbox/Grid
-- **Backend:** Node.js or Python, RESTful/GraphQL APIs
+- **Backend:** Node.js, RESTful/GraphQL APIs
 - **AI Integration:** Google Gemini 2.0 Flash model
 - **Deployment:** Docker, CI/CD pipelines
 - **Environment:** `.env` for API keys using `dotenv`
@@ -106,12 +115,12 @@ Food-Image-Recipe-Generator/
 │   │   └── index.js              # Entry point for the app
 │   ├── package.json              # Frontend dependencies & scripts
 │   └── README.md                 # Frontend-specific docs
-├── server/                       # Backend code (Node.js/Python)
+├── server/                       # Backend code (Node.js)
 │   ├── controllers/              # Logic for image processing and recipe generation
 │   ├── routes/                   # API route definitions
 │   ├── services/                 # Integration modules (Google Gemini API client)
-│   ├── app.js or main.py         # Main server file
-│   ├── package.json or requirements.txt  # Dependencies for the backend
+│   ├── app.js                    # Main server file
+│   ├── package.json              # Dependencies for the backend
 │   └── .env                      # Environment variables file (not tracked in VCS)
 ├── docker/                       # Docker configuration files
 │   └── Dockerfile
