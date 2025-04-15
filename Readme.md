@@ -46,49 +46,46 @@ NODE_ENV=development
 PORT=3000
 ```
 
-3. Install backend dependencies (Node.js backend)
+3. Install all dependencies (frontend and backend)
 ```bash
-cd server
-npm install
-```
-
-4. Install frontend dependencies
-```bash
-cd ../client
-npm install
+npm run install-all
 ```
 
 ## Usage
 
 ### Development Mode
 
-1. Start the backend server
+Run both frontend and backend concurrently:
 ```bash
-cd server
 npm run dev
 ```
 
-2. Start the frontend development server
+Or run them separately:
 ```bash
-cd client
-npm start
+# Backend only
+npm run server
+
+# Frontend only
+npm run client
 ```
 
-3. Open your browser and navigate to http://localhost:3000
+The application will be available at:
+- Frontend: http://localhost:3001
+- Backend API: http://localhost:3000
 
 ### Production Deployment
 
-1. Build the frontend
+Build and run the application in production mode:
 ```bash
-cd client
-npm run build
+npm run prod
 ```
 
-2. Start the server in production mode
-```bash
-cd ../server
-NODE_ENV=production npm start
-```
+This will:
+1. Build the React frontend
+2. Copy the build files to the server's public directory
+3. Start the server in production mode
+
+The application will be available at http://localhost:3000
 
 Alternatively, you can use Docker:
 ```bash

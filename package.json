@@ -1,0 +1,29 @@
+{
+  "name": "recipe-gen",
+  "version": "1.0.0",
+  "description": "Food Image Scanner & Recipe Generator",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && npm run install-server && npm run install-client",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm run build && cd .. && npm run build:windows",
+    "build:windows": "cd client && npm run build && xcopy /E /I /Y build ..\\server\\public",
+    "prod": "npm run build:windows && cd server && npm run prod"
+  },
+  "keywords": [
+    "recipe",
+    "food",
+    "ai",
+    "image-recognition"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

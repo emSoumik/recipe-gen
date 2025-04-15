@@ -4,6 +4,10 @@ import ImageUpload from '../components/ImageUpload';
 import RecipeDisplay from '../components/RecipeDisplay';
 import './Home.css';
 
+// Configure axios to use the server URL
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+axios.defaults.baseURL = API_URL;
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
