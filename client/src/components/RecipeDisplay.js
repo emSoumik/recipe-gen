@@ -4,13 +4,14 @@ import './RecipeDisplay.css';
 const RecipeDisplay = ({ recipe, detectedIngredients, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="recipe-loading">
+      <div className="recipe-loading" role="status">
         <div className="loading-spinner"></div>
         <p>Analyzing your ingredients and generating delicious recipes...</p>
       </div>
     );
   }
 
+  // Return null if no data and not loading
   if (!recipe && !detectedIngredients) {
     return null;
   }
@@ -28,7 +29,7 @@ const RecipeDisplay = ({ recipe, detectedIngredients, isLoading }) => {
         </div>
       )}
 
-      {recipe && (
+      {recipe ? (
         <div className="recipe-content">
           <h2>{recipe.title}</h2>
           
@@ -56,23 +57,27 @@ const RecipeDisplay = ({ recipe, detectedIngredients, isLoading }) => {
             )}
           </div>
           
-          <div className="recipe-ingredients">
-            <h3>Ingredients</h3>
-            <ul>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </div>
+          {recipe.ingredients && recipe.ingredients.length > 0 && (
+            <div className="recipe-ingredients">
+              <h3>Ingredients</h3>
+              <ul>
+                {recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           
-          <div className="recipe-instructions">
-            <h3>Instructions</h3>
-            <ol>
-              {recipe.instructions.map((step, index) => (
-                <li key={index}>{step}</li>
-              ))}
-            </ol>
-          </div>
+          {recipe.instructions && recipe.instructions.length > 0 && (
+            <div className="recipe-instructions">
+              <h3>Instructions</h3>
+              <ol>
+                {recipe.instructions.map((step, index) => (
+                  <li key={index}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
           
           {recipe.tips && (
             <div className="recipe-tips">
@@ -81,7 +86,11 @@ const RecipeDisplay = ({ recipe, detectedIngredients, isLoading }) => {
             </div>
           )}
         </div>
-      )}
+      ) : detectedIngredients && detectedIngredients.length > 0 ? (
+        <div className="no-recipe-message">
+          <p>No recipe was generated. Please try again with a different image.</p>
+        </div>
+      ) : null}
     </div>
   );
 };

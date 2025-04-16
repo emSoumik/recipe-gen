@@ -1,0 +1,160 @@
+.api-key-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.api-key-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.api-key-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.api-key-input:focus {
+  outline: none;
+  border-color: #4dabf7;
+}
+
+.visibility-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.submit-button {
+  padding: 0.8rem 1.5rem;
+  background-color: #4dabf7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #339af0;
+}
+
+.submit-button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  padding: 0.8rem 1.5rem;
+  background-color: #e9ecef;
+  color: #495057;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #dee2e6;
+}
+
+.api-key-help {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.api-key-help a {
+  color: #4dabf7;
+  text-decoration: none;
+}
+
+.api-key-help a:hover {
+  text-decoration: underline;
+}
+
+.stored-key-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.key-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkmark {
+  color: #34c759;
+  font-size: 1.2rem;
+}
+
+.success-message {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.show-button {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  border: 1px solid #dee2e6;
+}
+
+.show-button:hover {
+  background-color: #e9ecef;
+}
+
+.change-button {
+  background-color: #e9ecef;
+  color: #2c3e50;
+}
+
+.change-button:hover {
+  background-color: #dee2e6;
+}

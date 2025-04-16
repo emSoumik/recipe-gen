@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { FiUpload, FiCamera } from 'react-icons/fi';
 import './ImageUpload.css';
 
-const ImageUpload = ({ onImageUpload, isLoading }) => {
+const ImageUpload = ({ onImageUpload, isLoading, disabled }) => {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -28,7 +28,7 @@ const ImageUpload = ({ onImageUpload, isLoading }) => {
       'image/*': ['.jpeg', '.jpg', '.png', '.gif']
     },
     multiple: false,
-    disabled: isLoading
+    disabled: isLoading || disabled
   });
 
   const handleCameraCapture = () => {
@@ -51,14 +51,14 @@ const ImageUpload = ({ onImageUpload, isLoading }) => {
     <div className="image-upload-container">
       <div 
         {...getRootProps()} 
-        className={`dropzone ${isDragActive ? 'active' : ''} ${isLoading ? 'disabled' : ''}`}
+        className={`dropzone ${isDragActive ? 'active' : ''} ${isLoading ? 'disabled' : ''} ${disabled ? 'disabled' : ''}`}
       >
         <input {...getInputProps()} />
         
         {preview ? (
           <div className="preview-container">
             <img src={preview} alt="Preview" className="image-preview" />
-            {!isLoading && (
+            {!isLoading && !disabled && (
               <button 
                 className="change-image-btn" 
                 onClick={(e) => {
@@ -73,17 +73,21 @@ const ImageUpload = ({ onImageUpload, isLoading }) => {
         ) : (
           <div className="upload-message">
             <FiUpload className="upload-icon" />
-            <p>{isDragActive ? 'Drop the image here' : 'Drag & drop an image here, or click to select'}</p>
+            {disabled ? (
+              <p>Please provide an API key to upload images</p>
+            ) : (
+              <p>{isDragActive ? 'Drop the image here' : 'Drag & drop an image here, or click to select'}</p>
+            )}
           </div>
         )}
       </div>
 
-      {isMobile && !isLoading && (
+      {isMobile && !isLoading && !disabled && (
         <div className="mobile-upload-options">
           <button 
             className="camera-button" 
             onClick={handleCameraCapture}
-            disabled={isLoading}
+            disabled={isLoading || disabled}
           >
             <FiCamera /> Use Camera
           </button>

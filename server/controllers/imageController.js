@@ -10,7 +10,13 @@ exports.analyzeImage = async (req, res, next) => {
   try {
     // Check if image file is provided
     if (!req.file) {
-      return res.status(400).json({ message: 'No image file provided' });
+      return res.status(400).json({ error: 'No image file provided' });
+    }
+
+    // Check if API key is provided
+    const apiKey = req.body.apiKey;
+    if (!apiKey) {
+      return res.status(400).json({ error: 'API key is required' });
     }
 
     // Get image data
@@ -18,21 +24,21 @@ exports.analyzeImage = async (req, res, next) => {
     const mimeType = req.file.mimetype;
 
     // Process image with Gemini API
-    const result = await geminiService.analyzeImageAndGenerateRecipe(imageBuffer, mimeType);
+    const result = await geminiService.analyzeImageAndGenerateRecipe(imageBuffer, mimeType, apiKey);
 
-    // Return the response
-    res.status(200).json(result);
+    // Ensure the response is always in the expected format
+    if (result && result.success && result.detectedIngredients && result.recipe) {
+      return res.status(200).json({
+        success: true,
+        detectedIngredients: result.detectedIngredients,
+        recipe: result.recipe
+      });
+    } else {
+      return res.status(500).json({ error: 'Invalid response from AI service.' });
+    }
   } catch (error) {
     console.error('Error in image analysis:', error);
-    
-    if (error.message.includes('API key')) {
-      return res.status(401).json({ message: 'API key error. Please check your Gemini API key configuration.' });
-    }
-    
-    if (error.message.includes('image')) {
-      return res.status(400).json({ message: 'Invalid image or image format not supported.' });
-    }
-    
-    next(error);
+    // Always return an error object
+    return res.status(500).json({ error: error.message || 'An error occurred during image analysis.' });
   }
 };

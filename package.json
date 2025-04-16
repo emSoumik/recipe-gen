@@ -7,15 +7,16 @@
     "install-all": "npm install && npm run install-server && npm run install-client",
     "install-server": "cd server && npm install",
     "install-client": "cd client && npm install",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm start\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm run build && cd .. && npm run build:windows",
+    "build": "cd client && npm run build",
     "build:windows": "cd client && npm run build && xcopy /E /I /Y build ..\\server\\public",
     "prod": "npm run build:windows && cd server && npm run prod",
     "deploy": "npm run build && netlify deploy",
-    "deploy:prod": "npm run build && netlify deploy --prod"
+    "deploy:prod": "npm run build && netlify deploy --prod",
+    "test": "cd client && npm test"
   },
   "keywords": [
     "recipe",
