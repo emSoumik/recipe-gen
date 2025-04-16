@@ -27,7 +27,7 @@ Build a web application that uses advanced AI to scan photos of refrigerators or
 
 1. Clone the repository (adjust directory name as needed)
 ```bash
-git clone <your-repo-url> "recipe gen"
+git clone https://github.com/emSoumik/recipe-gen.git
 cd "recipe gen"
 ```
 
