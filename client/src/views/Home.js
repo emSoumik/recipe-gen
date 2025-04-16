@@ -6,11 +6,11 @@ import ApiKeyInput from '../components/ApiKeyInput';
 import './Home.css';
 
 // Configure axios to use the server URL based on environment
-const API_URL = process.env.REACT_APP_API_URL || (
-  process.env.NODE_ENV === 'production' 
-    ? '/.netlify/functions/api'
-    : 'http://localhost:3000'
-);
+// Use relative path for production (served by the same server)
+// Use absolute path for development (separate servers)
+const API_URL = process.env.NODE_ENV === 'production'
+  ? '/api' // Relative path to the API when served by the same server
+  : 'http://localhost:3000/api'; // Backend server URL for development
 
 axios.defaults.baseURL = API_URL;
 
@@ -45,7 +45,8 @@ const Home = () => {
     formData.append('apiKey', apiKey);
     
     try {
-      const response = await axios.post('/api/analyze-image', formData, {
+      // Use relative path '/analyze-image' which will be appended to axios.defaults.baseURL
+      const response = await axios.post('/analyze-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

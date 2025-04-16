@@ -32,13 +32,12 @@ app.get('/health', (req, res) => {
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')));
-}
+  // Serve the static files from the React app build directory
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
-// Serve React app in production
-if (process.env.NODE_ENV === 'production') {
+  // Handles any requests that don't match the ones above
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
   });
 }
 
@@ -59,7 +58,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use environment variable PORT or default to 3000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
   console.log(`API available at http://localhost:${PORT}/api`);
