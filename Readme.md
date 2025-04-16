@@ -57,7 +57,7 @@ npm run install-all
 
 Run both frontend and backend concurrently:
 ```bash
-npm run dev
+npm start
 ```
 
 Or run them separately:
@@ -71,7 +71,7 @@ npm run client
 
 The application will be available at:
 - Frontend: http://localhost:3001
-- Backend API: http://localhost:3000
+- Backend API: http://localhost:3000/api
 
 ### Production Deployment
 
@@ -92,6 +92,38 @@ Alternatively, you can use Docker:
 docker build -t food-image-recipe-generator -f docker/Dockerfile .
 docker run -p 3000:3000 -e GOOGLE_GEMINI_API_KEY=your_key_here food-image-recipe-generator
 ```
+
+## API Details
+
+- **Endpoint:** `POST /api/analyze-image`
+- **Request:** `multipart/form-data`
+  - `image`: image file
+  - `apiKey`: your Google Gemini API key
+- **Response:**
+  - On success:
+    ```json
+    {
+      "success": true,
+      "detectedIngredients": ["ingredient1", "ingredient2", ...],
+      "recipe": {
+        "title": "...",
+        "description": "...",
+        "prepTime": "...",
+        "cookTime": "...",
+        "servings": "...",
+        "ingredients": ["..."],
+        "instructions": ["..."],
+        "tips": "..."
+      }
+    }
+    ```
+  - On error:
+    ```json
+    { "error": "...error message..." }
+    ```
+
+## Model Used
+- Uses `gemini-2.0-flash` for image analysis and recipe generation (see `server/services/geminiService.js`).
 
 ## Technology Stack
 - **Frontend:** React.js or Vue.js, CSS3/SCSS, Flexbox/Grid
@@ -149,6 +181,12 @@ GOOGLE_GEMINI_API_KEY=your_google_gemini_api_key_here
 NODE_ENV=development
 PORT=3000
 ```
+
+## Troubleshooting
+- **Blank output?** Ensure both frontend and backend are running. Check browser console and backend logs for errors.
+- **404 on `/analyze-image`?** The frontend must POST to `/api/analyze-image`.
+- **CORS errors?** Backend must have CORS enabled (see `server/app.js`).
+- **Gemini API errors?** Ensure your API key is valid and has access to Gemini 2.0 Flash.
 
 ## Final Notes
 - Separate documentation for frontend/backend if needed
